@@ -19,23 +19,21 @@ export default class MainListItem extends React.Component {
   render(){
     let {money}=this.state;
     return(
-      <div>
+      <ListGroupItem bsStyle="success">
         <ModalFraction show={this.state.showModal} close={() => this.setState({ showModal: false })}/>
-        <ListGroupItem bsStyle="success">
-          <div className="row">
-            <div className="col-md-2 col-sm-9 col-xs-7 main-heading">
-              <strong><h4 className="total">{`Total:`}</h4></strong>
-            </div>
-            <div className="col-md-8">
-              <h4 className="total">{`${money} €`}</h4>
-            </div>
-            <div className="text-right">
-              <Button className='add' bsStyle="primary" onClick={this.open}>Add Fraction</Button>
-            </div>
-
+        <div className="row">
+          <div className="col-md-3 col-sm-9 col-xs-7 main-heading">
+            <strong><h4 className="total">{`Income:`}</h4></strong>
           </div>
-        </ListGroupItem>
-      </div>
+          <div className="col-md-6">
+            <h4 className="total">{`${money} €`}</h4>
+          </div>
+          <div className="text-right">
+            <Button className='add' bsStyle="primary" onClick={this.open}>Add Fraction</Button>
+          </div>
+
+        </div>
+      </ListGroupItem>
     );
 
   }
