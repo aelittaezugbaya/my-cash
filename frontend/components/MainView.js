@@ -26,26 +26,32 @@ export default class MainView extends React.Component {
     }
   }
   componentWillMount(){
-    this.update()
     this.getFractions();
+
+
   }
 
   getFractions() {
-    window.fetch('/api/fractions', {headers: {Accept: 'application/json'}})
-      .then(data => console.log(data.json()))
+    window.fetch('/api/fractions',
+      {headers: {Accept: 'application/json'}})
+      .then(data => data.json())
+      .then(data=>{
+        console.log(data);
+        this.setState({
+          fractions:data
+        },()=>this.update())
+      })
   }
 
   update(){
     let amount =this.state.income;
     let tot=this.state.total;
     for(let item of this.state.fractions){
-      amount-=item.money;
-
+      amount-=parseInt(item.amount);
+      console.log(item.amount)
     }
     tot+=this.state.income;
     let save = this.state.savings+amount;
-    getAccounts()
-      .then(data => console.log(data))
     this.setState({
       rest:amount,
       total:tot,
@@ -57,7 +63,7 @@ export default class MainView extends React.Component {
   getChartData(){
     let label = this.state.fractions.map(item=>item.name);
     label.push('Rest')
-    let amount = this.state.fractions.map(item=>item.money);
+    let amount = this.state.fractions.map(item=>item.amount);
     amount.push(this.state.rest);
     console.log(this.state.rest)
     let colors=['#00A399','#B2D969','#FAD02F','#CFCFCD','#E58826']
@@ -86,7 +92,7 @@ export default class MainView extends React.Component {
 
   render(){
     const {total,income,saving,fractions,chart}=this.state;
-    let items = fractions.map(item =><Item name={item.name} money={item.money}/>);
+    let items = fractions.map(item =><Item name={item.name} money={item.amount}/>);
     let data = chart;
     return(
       <div className="container-fluid">

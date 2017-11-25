@@ -40,6 +40,8 @@ export default class ModalFraction extends React.Component{
         type: this.state.type
       })
     })
+    this.close();
+    window.location.reload()
 
   }
 
