@@ -2,11 +2,21 @@ import React from 'react';
 import {ListGroup,ListGroupItem} from 'react-bootstrap';
 import MainListItem from './MainListItem';
 import Header from './Header'
-
+import {
+  getAccounts
+} from '../api/';
 
 
 export default class App extends React.Component {
-  co
+
+  state = () => {
+
+  }
+  componentDidMount() {
+    getAccounts()
+    .then(data => console.log(data))
+  }
+
   render(){
     return(
       <div className="container-fluid">

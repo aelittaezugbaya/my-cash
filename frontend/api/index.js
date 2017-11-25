@@ -1,0 +1,18 @@
+const clientId = '3c25e72a-0d80-4e9a-9b2c-fe3e9a726e32';
+import clientSecret from '../../.secret.js';
+
+const headers = {
+  'X-IBM-Client-Id': clientId,
+  'X-IBM-Client-Secret': clientSecret,
+  'Authorization': 'Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMTI4R0NNIiwiYWxnIjoiZGlyIn0..EBA8JiA_NZCI7FQF.qQkvQZzsQv0EnTiAt9azwbIvdc0q3irrpbjsFBlRO6rOIQ4aftbkdb7LYJ9YiweI-f4Jfhi3050fzxUnDl2VkpA7c28260Rbxt3dCR376lgxEbMWtk-EWqabH42gj_CIehK-YHX5FxGk_Qg-dpK8GbgmDvC8y-ebkiUwEOYY2cu1b_FU_Eot_3CbPqFxQH6GeDjtswcCwd-mWmGey2GO4BQw1281VKCB0i1pAJz9h9qQQN0eJk3CDXDebIycRbOoZmhQUK3R1H3unjCrlCk2qfZ6eWZYlItt5VZ3038g7yXdKNBwJkmGpbaLzJD3GGoWb3vbmMxpxzMaPysXAgNZQp4sOOcNSFRy93iHuHDXU9E2GzmfcZAcvdfZLlnx0nPDf27N9XFOVcCF7nrBkluUpokmWj11E5ZA-RZNwwls9UqLwwtKAn18l1us6ZkaOqTM4jzTp_IiEqzwa6X2uFa3lgJpHRZEStI7S5ZR2Zcjp10s21dCDbVZJAOlOXOy_-ePNQAXrRMlUxizMmUrq_q-_DVov_8QkMw0nQAUNHc6B8qu8Bg0uJjXN79_ban67wqmvdsApBf4quY-DNC_H02FxRUNeQywyUeNE6_OjukKFXwjftJNTAMLVYRv_KdL_Of7oBEiPLrmJSa1ZoWjs752U762uJjtOtdpyf_erfIycqhz-FnV9ox49iqQG1xNSxA8bvGwkKgSDQmBsVWSvolMxsfkt8pJJTP5mxTJANMhZUnw6SzkbjZgJlVwsJ9tbkbW_o7gtC2fRnOKLm7lyH69OuKPjKbGaKQEpRMQlFkIHsDHltEb7WbRkmjK5VtrvFWb41FdBCxNtXQ56U1sfER7FUmeFEqFt4oVMo6XP8llw4gPWNpmXzQISs0La_BttHrKB-EM9BXdZ5O4yVD47oYDHiSwPZYy5m_DwFEeAQmPSdC7UaH4jBdG-Q9I7honravEwquIJg9nKnqj-jvIyFHJLb3TDweAboFPG5i4EHAiLNBr5utZmvbCwL-DdO_6HID0xsfLIsVEtZNL9VfRrIfXZ-U9j6R4F_9yeIefWmLts8xgzeOd1d8dlAxWJPvWxEGcGFpyC3pbPUxXPJiqyfMnvl0aMUOhh-hHP9BEN2yliuRjS3VONQ5ZURbtV2qo9inGgxyD8imEXjauh20T2W2bbLHWUgnUeV0VbJJT29WhImyp3gPoi_0GftvA9efZTn2uou4Qjqsslyy0u7YjEI9vP6jNEv3_23qghI0oIcmaAUKLkfQjU9U_QITHUVRMZWV_SiKcM-jsDA1EpIPS_PlEPTfMo9s.Yd56-0LuaFbbM9nEUNLFHA'
+}
+
+const getAccounts = () => window
+    .fetch('https://api.hackathon.developer.nordeaopenbanking.com/v2/accounts', {
+      headers
+    })
+    .then(res => res.json());
+
+export {
+  getAccounts,
+}
