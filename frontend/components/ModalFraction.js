@@ -25,6 +25,21 @@ export default class ModalFraction extends React.Component{
   close = () => {
     this.props.close();
   }
+
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    
+    window.fetch('/api/fractions', {
+      method: 'POST',
+      body: {
+        name: this.name.value,
+        anount: this.amount.value,
+        type: this.state.type
+      }
+    })
+
+  }
+
   render(){
 
     return(
@@ -32,10 +47,10 @@ export default class ModalFraction extends React.Component{
         <Modal.Header closeButton>
           <Modal.Title>Create New Fraction</Modal.Title>
         </Modal.Header>
-        <form>
+        <form onSubmit={this.onFormSubmit}>
           <Modal.Body>
-              <Input id="name" placeholder="Enter name of the fraction">Fraction Name</Input>
-              <Input id="money" placeholder="Enter amount of money for this fraction">Amount of money</Input>
+              <Input id="name" ref={ref => this.name = ref} placeholder="Enter name of the fraction">Fraction Name</Input>
+              <Input id="money" ref={ref => this.amount = ref} placeholder="Enter amount of money for this fraction">Amount of money</Input>
               <Dropdown onChange={(value) => this.setState({type: value })} id="types" name="Type of fraction" types={['Monthly payment','Subscriptions','Payment with card', 'Cash withdrawal']}/>
               {this.state.type=='Subscriptions'?<Input id="subs" placeholder="Enter subscriptions">Subscriptions</Input>:''}
           </Modal.Body>

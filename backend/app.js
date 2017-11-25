@@ -7,8 +7,12 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var api = require('./routes/api');
-
+const db = require('./db');
 var app = express();
+
+const mongoose = require('Mongoose');
+
+mongoose.connect('mongodb://localhost/shoppingList', {useMongoClient: true});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
