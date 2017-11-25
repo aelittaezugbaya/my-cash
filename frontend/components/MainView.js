@@ -31,7 +31,8 @@ export default class MainView extends React.Component {
 
   }
 
-  getFractions() {
+  getFractions = () => {
+    console.log('frac')
     window.fetch('/api/fractions',
       {headers: {Accept: 'application/json'}})
       .then(data => data.json())
@@ -92,7 +93,7 @@ export default class MainView extends React.Component {
 
   render(){
     const {total,income,saving,fractions,chart}=this.state;
-    let items = fractions.map(item =><Item name={item.name} money={item.amount}/>);
+    let items = fractions.map(item =><Item name={item.name} id={item._id} money={item.amount} onDelete={this.getFractions} />);
     let data = chart;
     return(
       <div className="container-fluid">
@@ -107,7 +108,7 @@ export default class MainView extends React.Component {
         </div>
         <div className="col-md-7">
           <ListGroup condensed>
-            <MainListItem money={income}/>
+            <MainListItem money={income} onModalChange={this.getFractions}/>
             {items}
             <Item name="Rest" bsStyle="info" money={this.state.rest}/>
           </ListGroup>

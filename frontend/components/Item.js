@@ -9,6 +9,17 @@ export default class Item extends React.Component{
     this.toggle = this.toggle.bind(this)
   }
 
+  delete(){
+    window.fetch(`/api/fractions/${this.props.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        }})
+      .then(() => this.props.onDelete())
+  }
+
   toggle() {
     console.log(this.state.detailed)
     this.setState({detailed: !this.state.detailed})
@@ -22,6 +33,9 @@ export default class Item extends React.Component{
           </div>
           <div className="col-md-6">
             <h4 className="total">{`${this.props.money} €`}</h4>
+          </div>
+          <div className="text-right">
+            <Button className='add' onClick={()=>this.delete()}>Delete</Button>
           </div>
         </div>
         { this.props.name!="Rest" && this.props.name!="Saving"

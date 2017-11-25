@@ -20,7 +20,7 @@ export default class MainListItem extends React.Component {
     let {money}=this.state;
     return(
       <ListGroupItem bsStyle="success">
-        <ModalFraction show={this.state.showModal} close={() => this.setState({ showModal: false })}/>
+        <ModalFraction show={this.state.showModal} close={() => this.setState({ showModal: false })} onChange={this.props.onModalChange} />
         <div className="row">
           <div className="col-md-3 col-sm-9 col-xs-7 main-heading">
             <strong><h4 className="total">{`Income:`}</h4></strong>
