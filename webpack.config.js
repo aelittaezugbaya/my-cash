@@ -37,6 +37,15 @@ const commonConfig= {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader',
       },
+      {
+        test: /\.woff$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 50000,
+          },
+        },
+      },
     ],
   }
 };

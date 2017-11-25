@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListGroup,ListGroupItem} from 'react-bootstrap';
+import {ListGroup,ListGroupItem,Button} from 'react-bootstrap';
 import MainListItem from './MainListItem';
 import Header from './Header';
 import Item from './Item';
@@ -16,6 +16,7 @@ import {Doughnut,Pie} from 'react-chartjs-2';
 export default class MainView extends React.Component {
   constructor(props){
     super(props);
+    this.add=this.add.bind(this)
     this.state={
       income:2000,
       fractions:[{name:'Apartment',money:330},{name:'Food',money:150},{name:'Subscriptions:', money:50}],
@@ -24,8 +25,11 @@ export default class MainView extends React.Component {
       rest:0
     }
   }
-
   componentWillMount(){
+    this.update()
+  }
+
+  update(){
     let amount =this.state.income;
     let tot=this.state.total;
     for(let item of this.state.fractions){
@@ -65,6 +69,14 @@ export default class MainView extends React.Component {
     })
     console.log(data)
   }
+  add(){
+    let array = this.state.fractions;
+    array.push({name:'Ikea',money:100})
+    this.setState({
+      fractions:array
+    },() => this.update())
+
+  }
 
   render(){
     const {total,income,saving,fractions,chart}=this.state;
@@ -82,7 +94,7 @@ export default class MainView extends React.Component {
                }}/>
         </div>
         <div className="col-md-7">
-          <ListGroup>
+          <ListGroup condensed>
             <MainListItem money={income}/>
             {items}
             <Item name="Rest" bsStyle="info" money={this.state.rest}/>
