@@ -5,12 +5,14 @@ import React from 'react';
 import {Table} from 'react-bootstrap'
 
 export default class Transactions extends React.Component{
+  constructor(props){
+    super(props)
+  }
   render(){
     return(
-      <Table responsive>
+      <Table  condensed responsive>
         <thead>
         <tr>
-          <th>#</th>
           <th>Deptor</th>
           <th>Amount</th>
           <th>Date</th>
