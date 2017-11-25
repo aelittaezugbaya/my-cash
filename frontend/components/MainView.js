@@ -67,7 +67,7 @@ export default class MainView extends React.Component {
     let amount = this.state.fractions.map(item=>item.amount);
     amount.push(this.state.rest);
     console.log(this.state.rest)
-    let colors=['#00A399','#B2D969','#FAD02F','#CFCFCD','#E58826']
+    let colors=['#00A399','#B2D969','#FAD02F','#CFCFCD','#E58826','#0569A6','#F2EBBF']
     let chosenColors = label.map( (item, index) => colors[index]);
     const data = {
       labels: label,
