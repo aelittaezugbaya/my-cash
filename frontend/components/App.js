@@ -2,6 +2,7 @@ import React from 'react';
 import MainView from './MainView'
 import FirstPage from './FirstPage';
 import Input from './Input'
+import Header from './Header'
 
 
 export default class App extends React.Component {
@@ -16,8 +17,9 @@ export default class App extends React.Component {
   render (){
     return(
       <div>
+        <Header>Manage your cash easily!</Header>
        {window.localStorage.getItem('income')==null ?
-         <div className="container">
+         <div className="container firstPage ">
            <form onSubmit={()=>this.submit()}>
              <Input ref={ref=>this.income=ref} placeholder="Enter your monthly income">Income</Input>
            </form>

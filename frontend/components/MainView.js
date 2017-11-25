@@ -90,6 +90,10 @@ export default class MainView extends React.Component {
     },() => this.update())
 
   }
+  clean(){
+    localStorage.removeItem('income');
+    window.location.reload()
+  }
 
   render(){
     const {total,income,saving,fractions,chart}=this.state;
@@ -97,7 +101,7 @@ export default class MainView extends React.Component {
     let data = chart;
     return(
       <div className="container-fluid">
-        <Header>Manage your cash easily!</Header>
+
         <div className="col-md-5">
           <Pie data={data}
                width={500}
@@ -116,7 +120,9 @@ export default class MainView extends React.Component {
             <Item name="Total" bsStyle="danger" money={total}/>
             <Item name="Savings" bsStyle="warning" money={saving}/>
           </ListGroup>
+          <Button bsStyle="primary" onClick={()=>this.clean()}>Change income</Button>
         </div>
+
       </div>
     );
   }
