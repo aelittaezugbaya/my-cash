@@ -24,11 +24,14 @@ export default class Item extends React.Component{
             <h4 className="total">{`${this.props.money} €`}</h4>
           </div>
         </div>
-        <Collapse in={this.state.detailed}>
-          <div>
-            <Transactions />
-          </div>
-        </Collapse>
+        { this.props.name!="Rest" && this.props.name!="Saving"
+          && (<Collapse in={this.state.detailed}>
+              <div>
+                <Transactions />
+              </div>
+            </Collapse>)
+        }
+        
       </ListGroupItem>
     )
   }
