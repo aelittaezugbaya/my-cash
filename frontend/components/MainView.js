@@ -18,7 +18,7 @@ export default class MainView extends React.Component {
     super(props);
     this.add=this.add.bind(this)
     this.state={
-      income:2000,
+      income: this.props.income,
       fractions:[{name:'Apartment',money:330},{name:'Food',money:150},{name:'Subscriptions:', money:50}],
       savings:1200,
       total:1200,
@@ -108,7 +108,7 @@ export default class MainView extends React.Component {
         </div>
         <div className="col-md-7">
           <ListGroup condensed>
-            <MainListItem money={income} onModalChange={this.getFractions}/>
+            <MainListItem amount={income} onModalChange={this.getFractions}/>
             {items}
             <Item name="Rest" bsStyle="info" money={this.state.rest}/>
           </ListGroup>

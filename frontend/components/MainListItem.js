@@ -7,7 +7,7 @@ export default class MainListItem extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      money:2000,
+      money: this.props.amount,
       showModal:false
     }
     this.open=this.open.bind(this);

@@ -34,11 +34,12 @@ export default class Item extends React.Component{
           <div className="col-md-6">
             <h4 className="total">{`${this.props.money} €`}</h4>
           </div>
-          <div className="text-right">
+          { this.props.name!="Rest" && this.props.name!="Savings" && this.props.name!="Total"
+          && <div className="text-right">
             <Button className='add' onClick={()=>this.delete()}>Delete</Button>
-          </div>
+          </div>}
         </div>
-        { this.props.name!="Rest" && this.props.name!="Saving"
+        { this.props.name!="Rest" && this.props.name!="Savings"
           && (<Collapse in={this.state.detailed}>
               <div>
                 <Transactions />
