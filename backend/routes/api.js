@@ -24,13 +24,15 @@ router.get('/', function(req, res, next) {
 
 router.get('/fractions', function(req, res) {
   fractionModel.find({})
-    .then(data => res.body(JSON.stringify(data)))
+    .then(data => res.json(data))
+    .then(res.send)
+
 });
 
 router.post('/fractions', function(req, res) {
-  console.log(req.body)
-  res.body='kek';
-  res.send();
+
+  fractionModel.create(req.body)
+    .then(() => res.send('kek'));
 });
 
 module.exports = router;

@@ -11,7 +11,7 @@ export default class ModalFraction extends React.Component{
     super(props)
     this.state={
       subscriptions: false,
-      type: null
+      type: 'Monthly Payment'
     }
 
   }
@@ -28,14 +28,17 @@ export default class ModalFraction extends React.Component{
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    
+
     window.fetch('/api/fractions', {
       method: 'POST',
-      body: {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
         name: this.name.value,
-        anount: this.amount.value,
+        amount: this.amount.value,
         type: this.state.type
-      }
+      })
     })
 
   }

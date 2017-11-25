@@ -27,6 +27,12 @@ export default class MainView extends React.Component {
   }
   componentWillMount(){
     this.update()
+    this.getFractions();
+  }
+
+  getFractions() {
+    window.fetch('/api/fractions', {headers: {Accept: 'application/json'}})
+      .then(data => console.log(data.json()))
   }
 
   update(){

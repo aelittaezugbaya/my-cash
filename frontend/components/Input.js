@@ -13,7 +13,7 @@ export default class Input extends React.Component{
     return(
       <div className="form-group">
         <label htmlFor={id}>{children}</label>
-        <input ref={ref => this.input=ref } type="text" className="form-control" id={id} aria-describedby="emailHelp" placeholder={placeholder}/>
+        <input ref={ref => this.input=ref } type="text" className="form-control" id={id} aria-describedby="emailHelp" placeholder={placeholder} required/>
       </div>
     );
   }
