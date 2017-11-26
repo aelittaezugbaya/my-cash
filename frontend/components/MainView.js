@@ -9,54 +9,59 @@ import {Doughnut,Pie} from 'react-chartjs-2';
   getAccounts
 } from '../api/';
 
-
-
-
-
 export default class MainView extends React.Component {
   constructor(props){
     super(props);
     this.add=this.add.bind(this)
     this.state={
-      income: this.props.income,
-      fractions:[{name:'Apartment',money:330},{name:'Food',money:150},{name:'Subscriptions:', money:50}],
-      savings:1200,
-      total:1200,
+      income:this.props.income,
+      fractions:[],
+      savings:0,
+      transactions: [],
+      debtors: [],
+      total:7000,
       rest:0
     }
   }
   componentWillMount(){
     this.getFractions();
+    this.getTransactions();
+  }
 
-
+  getTransactions() {
+    return window.fetch('/api/transactions', {headers: {Accept: 'application/json'}})
+      .then(data => data.json())
+      .then(data => this.setState({transactions: data}));
   }
 
   getFractions = () => {
-    console.log('frac')
+    console.log('getting fractions')
     window.fetch('/api/fractions',
       {headers: {Accept: 'application/json'}})
       .then(data => data.json())
       .then(data=>{
-        console.log(data);
         this.setState({
           fractions:data
-        },()=>this.update())
+        },()=>{
+          this.getTransactions()
+            .then(this.update)
+        })
       })
   }
 
-  update(){
-    let amount =this.state.income;
-    let tot=this.state.total;
+  update = () => {
+    
+    let {income} =this.state;
+    let spendings = 0;
     for(let item of this.state.fractions){
-      amount-=parseInt(item.amount);
-      console.log(item.amount)
+      spendings += parseInt(item.amount)
     }
-    tot+=this.state.income;
-    let save = this.state.savings+amount;
+
+    let save =  income - spendings;
     this.setState({
-      rest:amount,
-      total:tot,
-      saving:save
+      rest: save,
+
+      saving: this.state.total - spendings
     }, () => this.getChartData())
 
   }
@@ -66,7 +71,6 @@ export default class MainView extends React.Component {
     label.push('Rest')
     let amount = this.state.fractions.map(item=>item.amount);
     amount.push(this.state.rest);
-    console.log(this.state.rest)
     let colors=['#00A399','#B2D969','#FAD02F','#CFCFCD','#E58826','#0569A6','#F2EBBF']
     let chosenColors = label.map( (item, index) => colors[index]);
     const data = {
@@ -80,7 +84,6 @@ export default class MainView extends React.Component {
     this.setState({
       chart:data
     })
-    console.log(data)
   }
   add(){
     let array = this.state.fractions;
@@ -95,9 +98,32 @@ export default class MainView extends React.Component {
     window.location.reload()
   }
 
+  sumTransactions() {
+    if(this.state.transactions.length == 0)
+      return 0;
+    
+    return this.state.transactions
+      .filter(transaction => transaction.fractionId == 'Unfiltered')
+      .reduce((total = 0, item) => {
+        if(total instanceof Object) total = 0;
+        return total = total + parseFloat(item.amount);
+      });
+  }
+
   render(){
     const {total,income,saving,fractions,chart}=this.state;
-    let items = fractions.map(item =><Item name={item.name} id={item._id} money={item.amount} onDelete={this.getFractions} />);
+    let items = fractions.map(item => (
+      <Item 
+        key={item._id}
+        name={item.name}
+        id={item._id}
+        money={item.amount}
+        onDelete={this.getFractions}
+        transactions={
+          this.state.transactions.filter(transaction => transaction.fractionId == item._id)
+        }
+      />
+    ));
     let data = chart;
     return(
       <div className="container-fluid">
@@ -114,6 +140,7 @@ export default class MainView extends React.Component {
           <ListGroup condensed>
             <MainListItem amount={income} onModalChange={this.getFractions}/>
             {items}
+            <Item name="Unsorted" bsStyle="" onDelete={this.getFractions} money={this.sumTransactions()} transactions={this.state.transactions.filter(transaction => transaction.fractionId == 'Unfiltered')}/>            
             <Item name="Rest" bsStyle="info" money={this.state.rest}/>
           </ListGroup>
           <ListGroup>

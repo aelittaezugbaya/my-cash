@@ -6,7 +6,7 @@
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build": "webpack --env production",
     "backend-dev": "nodemon -x npm run backend --ignore ./frontend",
-    "backend": "node ./bin/www"
+    "backend": "node --inspect=0.0.0.0:9229 ./bin/www"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
@@ -21,6 +21,7 @@
     "font-awesome": "^4.7.0",
     "mongoose": "^4.13.5",
     "morgan": "~1.8.1",
+    "node-fetch": "^1.7.3",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-chartjs-2": "^2.6.4",

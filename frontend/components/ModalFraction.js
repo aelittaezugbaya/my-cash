@@ -11,9 +11,8 @@ export default class ModalFraction extends React.Component{
     super(props)
     this.state={
       subscriptions: false,
-      type: 'Monthly Payment'
+      type: 'Monthly Payment',
     }
-
   }
 
   chooseSubscriptions(){
